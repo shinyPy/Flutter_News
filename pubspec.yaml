@@ -68,6 +68,8 @@ flutter:
     - assets/images/facebook.svg
     - assets/images/twitter.svg
     - assets/images/logo.png
+    - assets/images/rect.png
+
 
   #   - images/a_dot_ham.jpeg
 

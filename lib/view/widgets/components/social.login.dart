@@ -9,7 +9,7 @@ class SocialLogin extends StatelessWidget {
     return Column(children: [
       Container(
         alignment: Alignment.center,
-        child: Text(
+        child: const Text(
           '-Or sign in with-',
           style: TextStyle(
             color: Colors.black,
@@ -37,7 +37,7 @@ class SocialLogin extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Image(
+                child: const Image(
                   height: 30,
                   image: Svg('assets/images/google.svg'),
                 ),

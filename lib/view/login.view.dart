@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news/utils/global.colors.dart';
-import 'package:flutter_news/view/widgets/button.global.dart';
-import 'package:flutter_news/view/widgets/social.login.dart';
-import 'package:flutter_news/view/widgets/text.form.global.dart';
+import 'package:flutter_news/view/home.view.dart';
+import 'package:flutter_news/view/widgets/helpers/button.global.dart';
+import 'package:flutter_news/view/widgets/components/social.login.dart';
+import 'package:flutter_news/view/widgets/helpers/text.form.global.dart';
+import "package:get/get.dart";
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -66,7 +68,11 @@ class LoginView extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ButtonGlobal(
+                  color: GlobalColors.secondaryColor,
                   text: 'Sign in',
+                  onTap: () {
+                    Get.to(Homepage());
+                  },
                 ),
                 const SizedBox(height: 25),
                 SocialLogin(),
