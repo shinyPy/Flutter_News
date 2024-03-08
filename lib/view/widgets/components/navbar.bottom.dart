@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news/view/widgets/home/home.contents.dart';
+import 'package:flutter_news/view/widgets/contents/bookmark.content.dart';
+import 'package:flutter_news/view/widgets/contents/home.contents.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
@@ -43,11 +44,9 @@ class _NavbarState extends State<Navbar> {
   Widget _getBody(int index) {
     switch (index) {
       case 0:
-        return HomeContentWidget(); // Use HomeContentWidget for the home page
+        return HomeContentWidget();
       case 1:
-        return Center(
-          child: Text('Bookmark Page'),
-        );
+        return Bookmark();
       case 2:
         return Center(
           child: Text('Account Page'),

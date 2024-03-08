@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news/view/widgets/components/news.widget.dart';
+import 'package:flutter_news/view/widgets/components/list.widget.dart';
 import 'package:flutter_news/view/widgets/helpers/news.category.dart';
 
 class HomeContentWidget extends StatefulWidget {
@@ -33,6 +34,10 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.redAccent,
+        toolbarHeight: 200,
+      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: _handleRefresh,
@@ -75,6 +80,8 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
                   },
                 ),
               ),
+
+// Add more ListContents widgets as needed
             ],
           ),
         ),
