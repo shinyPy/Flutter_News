@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news/view/widgets/components/news.widget.dart';
-import 'package:flutter_news/view/widgets/components/list.widget.dart';
 import 'package:flutter_news/view/widgets/helpers/news.category.dart';
 
 class HomeContentWidget extends StatefulWidget {

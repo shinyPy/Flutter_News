@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news/view/widgets/components/navbar.bottom.dart';
 import 'package:flutter_news/view/widgets/components/list.widget.dart';
 
 class Bookmark extends StatelessWidget {
