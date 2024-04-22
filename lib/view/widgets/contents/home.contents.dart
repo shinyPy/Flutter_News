@@ -1,107 +1,127 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news/view/widgets/components/news.widget.dart';
-import 'package:flutter_news/view/widgets/helpers/news.category.dart';
 
-class HomeContentWidget extends StatefulWidget {
-  const HomeContentWidget({Key? key}) : super(key: key);
-
+class HomeContents extends StatefulWidget {
   @override
-  _HomeContentWidgetState createState() => _HomeContentWidgetState();
+  _HomeContentsState createState() => _HomeContentsState();
 }
 
-class _HomeContentWidgetState extends State<HomeContentWidget> {
-  // Dummy data, ganti dengan data sebenarnya
-  List<String> newsTitles = [
-    'Flutter News 1',
-    'Flutter News 2',
-    'Flutter News 3',
-  ];
-  List<String> newsDesc = [
-    'News Article in Flutter 1',
-    'News Article in Flutter 2',
-    'News Article in Flutter 3',
-  ];
+class _HomeContentsState extends State<HomeContents> {
+  // Initialize newsItems with 'Trending' as the default category
+  List<String> newsItems =
+      List.generate(10, (index) => 'Trending News Item $index');
+  // Set 'Trending' as the default category
+  String currentCategory = 'Trending';
 
-  List<String> newsCategories = [
-    'Technology',
-    'Sports',
-    'Entertainment',
-    'Science'
-  ];
-  String selectedCategory = 'Technology'; // Initially selected category
+  void updateNewsItems(String category) {
+    setState(() {
+      currentCategory = category;
+      // Update news items based on the selected category
+      newsItems = List.generate(10, (index) => '$category News Item $index');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
-        toolbarHeight: 200,
+        backgroundColor: Colors.white,
+        title: Image.network('https://picsum.photos/200/40',
+            height: 40), // Random logo image
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search, color: Colors.black),
+            onPressed: () {},
+          ),
+        ],
       ),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: _handleRefresh,
-          child: CustomScrollView(
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.all(15.0),
-                sliver: SliverToBoxAdapter(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        for (int i = 0; i < newsTitles.length; i++)
-                          NewsWidget(
-                            title: newsTitles[i],
-                            description: newsDesc[i],
-                            imageUrl: 'assets/images/rect.png',
-                            onTap: () {
-                              print('${newsTitles[i]} tapped!');
-                            },
-                          ),
-                        const SizedBox(width: 16),
-                      ],
-                    ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('WEEKLY FEATURED',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            ),
+            Container(
+              height: 200,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  FeaturedItem(
+                      title: 'New tour at South Borneo',
+                      imageUrl: 'https://picsum.photos/200/300'),
+                  FeaturedItem(
+                      title: 'Mortal Kombat 1',
+                      imageUrl: 'https://picsum.photos/200/300'),
+                  FeaturedItem(
+                      title: 'EPL: Arteta...',
+                      imageUrl: 'https://picsum.photos/200/300'),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => updateNewsItems('Trending'),
+                  child: Text('Trending'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: currentCategory == 'Trending'
+                        ? Colors.red
+                        : Colors.grey,
                   ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: Divider(
-                  color: Colors.black,
-                  height: 20,
-                  thickness: 0.1,
+                ElevatedButton(
+                  onPressed: () => updateNewsItems('Newest'),
+                  child: Text('Newest'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: currentCategory == 'Trending'
+                        ? Colors.red
+                        : Colors.grey,
+                  ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: NewsCategoryList(
-                  categories: newsCategories,
-                  onTap: () {
-                    print('${newsCategories} tapped!');
-                  },
-                ),
-              ),
-
-// Add more ListContents widgets as needed
-            ],
-          ),
+              ],
+            ),
+            ListView.builder(
+              physics:
+                  NeverScrollableScrollPhysics(), // to disable ListView's scrolling
+              shrinkWrap:
+                  true, // to make ListView take space as per its children
+              itemCount: newsItems.length, // number of news items
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(newsItems[index]),
+                  subtitle: Text('Subtitle $index'),
+                  leading: Image.network(
+                      'https://picsum.photos/50/50'), // Random image for each news item
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
   }
+}
 
-  Future<void> _handleRefresh() async {
-    await Future.delayed(const Duration(seconds: 1));
+class FeaturedItem extends StatelessWidget {
+  final String title;
+  final String imageUrl;
 
-    setState(() {
-      newsTitles = [
-        'Refreshed News 1',
-        'Refreshed News 2',
-        'Refreshed News 3',
-      ];
-      newsDesc = [
-        'Refreshed Article in Flutter 1',
-        'Refreshed Article in Flutter 2',
-        'Refreshed Article in Flutter 3',
-      ];
-    });
+  const FeaturedItem({Key? key, required this.title, required this.imageUrl})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          Image.network(imageUrl,
+              fit: BoxFit.cover), // Random image from Lorem Picsum
+          Text(title),
+        ],
+      ),
+    );
   }
 }

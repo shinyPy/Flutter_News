@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news/view/widgets/contents/account.content.dart';
 import 'package:flutter_news/view/widgets/contents/bookmark.content.dart';
 import 'package:flutter_news/view/widgets/contents/home.contents.dart';
 
@@ -25,18 +26,21 @@ class _NavbarState extends State<Navbar> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.blue),
+            icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark, color: Colors.green),
+            icon: Icon(Icons.bookmark),
             label: 'Bookmark',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle, color: Colors.orange),
+            icon: Icon(Icons.account_circle),
             label: 'Account',
           ),
         ],
+        selectedItemColor: Color.fromARGB(255, 243, 0, 0),
+        unselectedItemColor: Colors.black,
+        type: BottomNavigationBarType.shifting, // Add this line
       ),
     );
   }
@@ -44,13 +48,11 @@ class _NavbarState extends State<Navbar> {
   Widget _getBody(int index) {
     switch (index) {
       case 0:
-        return HomeContentWidget();
+        return HomeContents();
       case 1:
         return Bookmark();
       case 2:
-        return Center(
-          child: Text('Account Page'),
-        );
+        return ImageWithContainer();
       default:
         return Container();
     }
