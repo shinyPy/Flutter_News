@@ -1,18 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news/view/login.view.dart';
+import 'login.view.dart'; // Make sure to import your next view
 
-class SplashView extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+  Animation<double>? _fadeAnimation;
+  Animation<double>? _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _fadeAnimation = CurvedAnimation(
+      parent: _controller!,
+      curve: Curves.easeIn,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller!,
+        curve: Curves.elasticOut, // This curve provides a spring-like effect
+      ),
+    );
+
+    _controller!.forward();
+
+    _controller!.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginView()),
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginView()),
-      );
-    });
     return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: FadeTransition(
+        opacity: _fadeAnimation!,
+        child: ScaleTransition(
+          scale: _scaleAnimation!,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/icon1.png', // Path to your custom image
+                  width: 100, // Adjust the width as needed
+                ), // Your logo here
+                Text('SKATEL NEWS', style: TextStyle(fontSize: 24.0)),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

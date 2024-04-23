@@ -1,56 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news/view/widgets/components/list.widget.dart';
 
 class Bookmark extends StatelessWidget {
   const Bookmark({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Sample data for the grid of bookmarks
+    final List<Map<String, dynamic>> bookmarks = [
+      {
+        "title": "Mortal Kombat 1",
+        "subtitle": "Introducing New Kameo Fighter System",
+        "imageUrl": "https://via.placeholder.com/150"
+      },
+      {
+        "title": "Remain alert against drug",
+        "subtitle": "BNN tells migrant workers",
+        "imageUrl": "https://via.placeholder.com/150"
+      },
+      {
+        "title": "Indonesian Hercules aircraft",
+        "subtitle": "carrying Gaza equipment arrives in Jordan",
+        "imageUrl": "https://via.placeholder.com/150"
+      },
+      {
+        "title": "Ministry projects US17.3",
+        "subtitle": "billion turnover during Eid momentum",
+        "imageUrl": "https://via.placeholder.com/150"
+      },
+      {
+        "title": "Explosion at Army ammo",
+        "subtitle": "depot affected 65 tons of munitions",
+        "imageUrl": "https://via.placeholder.com/150"
+      },
+      {
+        "title": "Indonesia expects 6 sport",
+        "subtitle": "climbing athletes to qualify for Olympics",
+        "imageUrl": "https://via.placeholder.com/150"
+      },
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          'Bookmark',
-          style: TextStyle(color: Colors.black),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.camera_alt, color: Colors.black),
-          onPressed: () {
-            // Add action for camera icon here
-          },
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.send, color: Colors.black),
-            onPressed: () {
-              // Add action for send icon here
-            },
-          ),
-        ],
+        title: Text('Bookmarks'),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: List.generate(5 * 2 - 1, (index) {
-            // Adjust the count to accommodate dividers
-            if (index % 2 == 0) {
-              // This is a content item
-              int itemIndex =
-                  index ~/ 2; // Calculate the actual index of the content item
-              return Expanded(
-                child: ListContents(
-                  title: 'Test ${itemIndex + 1}',
-                  subtitle: 'Test subtitle ${itemIndex + 1}',
-                  time: '10:${itemIndex}0 pm',
-                ),
-              );
-            } else {
-              // This is a divider
-              return Divider(); // Add Divider widget here
-            }
-          }),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // Number of columns
+          childAspectRatio: 0.7, // Adjusted aspect ratio for smaller items
+          crossAxisSpacing: 10, // Horizontal space between items
+          mainAxisSpacing: 10, // Vertical space between items
         ),
+        itemCount: bookmarks.length,
+        itemBuilder: (context, index) {
+          return Card(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Image.network(
+                  bookmarks[index]["imageUrl"],
+                  fit: BoxFit.cover,
+                  height: 100, // Adjusted height
+                  width: double.infinity,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    bookmarks[index]["title"],
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    bookmarks[index]["subtitle"],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

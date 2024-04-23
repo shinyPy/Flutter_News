@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news/view/widgets/components/items.widget.dart';
 
 class HomeContents extends StatefulWidget {
   @override
@@ -6,17 +7,14 @@ class HomeContents extends StatefulWidget {
 }
 
 class _HomeContentsState extends State<HomeContents> {
-  // Initialize newsItems with 'Trending' as the default category
   List<String> newsItems =
-      List.generate(10, (index) => 'Trending News Item $index');
-  // Set 'Trending' as the default category
+      List.generate(5, (index) => 'Trending News Item $index');
   String currentCategory = 'Trending';
 
   void updateNewsItems(String category) {
     setState(() {
       currentCategory = category;
-      // Update news items based on the selected category
-      newsItems = List.generate(10, (index) => '$category News Item $index');
+      newsItems = List.generate(5, (index) => '$category News Item $index');
     });
   }
 
@@ -25,8 +23,10 @@ class _HomeContentsState extends State<HomeContents> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Image.network('https://picsum.photos/200/40',
-            height: 40), // Random logo image
+        title: Image.network(
+          'https://via.placeholder.com/100',
+          height: 40,
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.search, color: Colors.black),
@@ -35,92 +35,143 @@ class _HomeContentsState extends State<HomeContents> {
         ],
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(), // Updated scroll physics
         child: Column(
           children: [
-            Padding(
+            const Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('WEEKLY FEATURED',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              child: const Text(
+                'WEEKLY FEATURED',
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
             Container(
-              height: 200,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   FeaturedItem(
-                      title: 'New tour at South Borneo',
-                      imageUrl: 'https://picsum.photos/200/300'),
+                    title: 'New tour at South Borneo',
+                    imageUrl: 'https://via.placeholder.com/200',
+                  ),
                   FeaturedItem(
-                      title: 'Mortal Kombat 1',
-                      imageUrl: 'https://picsum.photos/200/300'),
+                    title: 'Mortal Kombat 1',
+                    imageUrl: 'https://via.placeholder.com/200',
+                  ),
                   FeaturedItem(
-                      title: 'EPL: Arteta...',
-                      imageUrl: 'https://picsum.photos/200/300'),
+                    title: 'EPL: Arteta...',
+                    imageUrl: 'https://via.placeholder.com/200',
+                  ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => updateNewsItems('Trending'),
-                  child: Text('Trending'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: currentCategory == 'Trending'
-                        ? Colors.red
-                        : Colors.grey,
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => updateNewsItems('Trending'),
+                        child: Text(
+                          'Trending',
+                          style: TextStyle(
+                            color: currentCategory == 'Trending'
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: currentCategory == 'Trending'
+                              ? Colors.red
+                              : Colors.grey[300],
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => updateNewsItems('Newest'),
+                        child: Text(
+                          'Newest',
+                          style: TextStyle(
+                            color: currentCategory == 'Newest'
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: currentCategory == 'Newest'
+                              ? Colors.red
+                              : Colors.grey[300],
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () => updateNewsItems('Newest'),
-                  child: Text('Newest'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: currentCategory == 'Trending'
-                        ? Colors.red
-                        : Colors.grey,
+                  const SizedBox(height: 10),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: newsItems.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: ListTile(
+                          title: Text(
+                            newsItems[index],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Subtitle $index',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          leading: Image.network(
+                            'https://via.placeholder.com/100',
+                            fit: BoxFit.cover, // Updated BoxFit property
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ),
-              ],
-            ),
-            ListView.builder(
-              physics:
-                  NeverScrollableScrollPhysics(), // to disable ListView's scrolling
-              shrinkWrap:
-                  true, // to make ListView take space as per its children
-              itemCount: newsItems.length, // number of news items
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(newsItems[index]),
-                  subtitle: Text('Subtitle $index'),
-                  leading: Image.network(
-                      'https://picsum.photos/50/50'), // Random image for each news item
-                );
-              },
+                ],
+              ),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class FeaturedItem extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-
-  const FeaturedItem({Key? key, required this.title, required this.imageUrl})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          Image.network(imageUrl,
-              fit: BoxFit.cover), // Random image from Lorem Picsum
-          Text(title),
-        ],
       ),
     );
   }

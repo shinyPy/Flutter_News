@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class ImageWithContainer extends StatelessWidget {
   const ImageWithContainer({Key? key}) : super(key: key);

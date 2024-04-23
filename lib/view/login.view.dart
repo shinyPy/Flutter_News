@@ -4,6 +4,7 @@ import 'package:flutter_news/view/home.view.dart';
 import 'package:flutter_news/view/widgets/helpers/button.global.dart';
 import 'package:flutter_news/view/widgets/components/social.login.dart';
 import 'package:flutter_news/view/widgets/helpers/text.form.global.dart';
+import 'package:google_fonts/google_fonts.dart';
 import "package:get/get.dart";
 
 class LoginView extends StatelessWidget {
@@ -39,10 +40,12 @@ class LoginView extends StatelessWidget {
                     ),
                     Text(
                       'Login to your account',
-                      style: TextStyle(
-                        color: GlobalColors.textColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                          color: GlobalColors.textColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     const SizedBox(
