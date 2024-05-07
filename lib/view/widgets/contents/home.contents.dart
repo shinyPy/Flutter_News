@@ -24,7 +24,7 @@ class _HomeContentsState extends State<HomeContents> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Image.network(
-          'https://via.placeholder.com/100',
+          'https://media.discordapp.net/attachments/1041516646222798872/1233210464989876295/logo.png?ex=662c443e&is=662af2be&hm=7e12302537e08466d4a3ae748d3cc379b201004162255dc127c282b993be2dbe&=&format=webp&quality=lossless&width=398&height=118',
           height: 40,
         ),
         actions: [

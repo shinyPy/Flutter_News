@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news/view/widgets/contents/dashboard.content.dart';
 
 class ImageWithContainer extends StatelessWidget {
   const ImageWithContainer({Key? key}) : super(key: key);
@@ -70,12 +71,20 @@ class ImageWithContainer extends StatelessWidget {
                   ),
                   ListTile(
                     leading: Icon(Icons.security, color: Colors.black),
-                    title: Text('Privacy & Security',
+                    title: Text('Admin Dashboard',
                         style: TextStyle(color: Colors.black)),
                     onTap: () {
-                      // Navigate to privacy & security page
+                      Navigator.push(
+                        context, // Pass the current context
+                        MaterialPageRoute(
+                            builder: (context) => DashboardScreen(
+                                  onUpdate: () {},
+                                  onDelete: () {},
+                                )),
+                      );
                     },
                   ),
+                ]
                 ],
               ).toList(),
             ),

@@ -40,7 +40,7 @@ class _NavbarState extends State<Navbar> {
         ],
         selectedItemColor: Color.fromARGB(255, 243, 0, 0),
         unselectedItemColor: Colors.black,
-        type: BottomNavigationBarType.shifting, // Add this line
+        type: BottomNavigationBarType.shifting,
       ),
     );
   }
