@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 
 class DashboardScreen extends StatelessWidget {
-  final String news;
-  final String caption;
-  final DateTime date;
-  final Function onUpdate;
-  final Function onDelete;
-
-  const DashboardScreen(this.news, this.caption, this.date,
-      {super.key, required this.onUpdate, required this.onDelete});
+  const DashboardScreen({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,9 +57,7 @@ class DashboardScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 15.0),
                             ElevatedButton(
-                              onPressed: () {
-                                if (Form.of(context)!.validate()) {}
-                              },
+                              onPressed: () {},
                               child: const Text('Buat News'),
                             ),
                           ],

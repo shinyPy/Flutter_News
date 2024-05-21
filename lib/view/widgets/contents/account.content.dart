@@ -77,14 +77,11 @@ class ImageWithContainer extends StatelessWidget {
                       Navigator.push(
                         context, // Pass the current context
                         MaterialPageRoute(
-                            builder: (context) => DashboardScreen(
-                                  onUpdate: () {},
-                                  onDelete: () {},
-                                )),
+                          builder: (context) => const DashboardScreen(),
+                        ),
                       );
                     },
                   ),
-                ]
                 ],
               ).toList(),
             ),
@@ -93,10 +90,4 @@ class ImageWithContainer extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: ImageWithContainer(),
-  ));
 }
